@@ -1,0 +1,24 @@
+name: Build pinfocopyDLL
+
+on:
+  workflow_dispatch:  # 手動実行を許可
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+    
+    - name: Build x64 Release
+      run: msbuild pinfocopyDLL.sln /p:Configuration=Release /p:Platform=x64
+    
+    - name: Upload DLL
+      uses: actions/upload-artifact@v3
+      with:
+        name: pinfocopyDLL-x64
+        path: x64/Release/pinfocopyDLL.dll
