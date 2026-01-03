@@ -1,4 +1,4 @@
-name: Build pinfocopyDLL
+name: Build pinfocopy EXE
 
 on:
   workflow_dispatch:
@@ -17,8 +17,10 @@ jobs:
     - name: Build Win32 Release
       run: msbuild pinfocopyDLL.sln /p:Configuration=Release /p:Platform=Win32
     
-    - name: Upload DLL
+    - name: Upload EXE
       uses: actions/upload-artifact@v4
       with:
-        name: pinfocopyDLL-Win32
-        path: Release/pinfocopyDLL.dll
+        name: pinfocopy-EXE-Win32
+        # 生成されるEXEをアップロード
+        # プロジェクト名が pinfocopyDLL なので pinfocopyDLL.exe が生成されるはず
+        path: Release/pinfocopyDLL.exe
